@@ -1,19 +1,22 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class RC4Test {
+class RC4Test {
 
     @Test
-    public void rc4Test(){
-        String key = "olha";
-        String plainText = "karpyshyn";
-        RC4 rc4 = new RC4(key.getBytes());
-        byte[] encoded = rc4.encrypt(plainText.getBytes());
+    void RPGA() {
+        try {
+            String key = "strongKey";
+            String stringToEncrypt = "test string";
 
-        rc4 = new RC4(key.getBytes());
-        byte[] decrypted = rc4.decrypt(encoded);
-        String result = new String(decrypted);
-        assertEquals(plainText,result);
+            RC4 rc4 = new RC4(key);
+            char[] result = rc4.RPGA(stringToEncrypt.toCharArray());
+
+            assertEquals("»Ad.b+Oa' f", new String(result));
+            assertEquals("test string", new String(rc4.RPGA(result)));
+        } catch (InvalidKeyException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
